@@ -3,12 +3,13 @@ import React from "react";
 import { SimpleBarChart } from "@carbon/charts-react";
 import "@carbon/charts/styles.css";
 import { x } from '@xstyled/styled-components'
+import BarChart from './BarChart.jsx'
 
 
-// type BarCharAndSliderProps = {
-//     data: number[],
-//     pos:number
-// }
+type BarCharAndSliderProps = {
+    data: number[],
+    pos:number
+}
     
 
 function getRandomColor() {
@@ -22,11 +23,11 @@ function getRandomColor() {
   
   
 
-const BarCharAndSlider = ({ data, pos }) => {
+const BarChartAndSlider =  ({ data, pos }: BarCharAndSliderProps): JSX.Element =>{
 
-	var bar_chart_data = []
-	var scale_colors = {}
-	data.map((item,pos)=>(
+	var bar_chart_data : {group: string,value:number}[] = []
+	var scale_colors : {[key: string]: string} = {}
+	data.map((item:number,pos)=>(
 		bar_chart_data.push({
 			"group": `Category ${pos}`,
 			"value": item
@@ -39,7 +40,7 @@ const BarCharAndSlider = ({ data, pos }) => {
 
     var state = {
 		data: bar_chart_data,
-    options: {
+    options : {
 		"title": "Bar Chat with elements and random color",
 		"axes": {
 		  "left": {
@@ -57,6 +58,9 @@ const BarCharAndSlider = ({ data, pos }) => {
 		"width":"500px"
 	  }
 	};
+
+	
+
       return (
 
 		<x.div
@@ -70,13 +74,12 @@ const BarCharAndSlider = ({ data, pos }) => {
 		mt={5}
 	  >
       <x.h1>{pos}. Type : Bar Chart</x.h1>
-        <SimpleBarChart
+        <BarChart
 			data={state.data}
-			options={state.options}>
-		</SimpleBarChart>
+			options={state.options}/>
 		</x.div>
       );
 }
 
 
-export default BarCharAndSlider
+export default BarChartAndSlider

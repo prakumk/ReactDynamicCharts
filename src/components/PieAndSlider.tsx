@@ -41,13 +41,7 @@ const PieAndSlider = ({ data, pos }: PieAndSliderProps): JSX.Element => {
 
   const [categories, setCategories] = useState(() => {
 
-    var initialCategories  = [{
-      title: 'Temp',
-      color: '#94a3b8',
-      id:1,
-      value:1,
-    }]
-    initialCategories.pop()
+    var initialCategories : {title: string,color:string,id:number,value:number}[] = []
 
     data.map((item,index)=>(
       initialCategories.push({

@@ -3,7 +3,7 @@ import { useState,useEffect } from 'react'
 import axios from 'axios';
 import PieAndSlider from './components/PieAndSlider';
 import { x } from '@xstyled/styled-components'
-import BarCharAndSlider from './components/BarChartAndSlider.jsx';
+import BarChartAndSlider from './components/BarChartAndSlider';
 
 
 // const splitAmount = (amount: number, n: number): number[] => {
@@ -65,7 +65,7 @@ function App(): JSX.Element {
         <PieAndSlider key={pos} data={item.elements} pos={pos+1}/>
       :
       // <PieAndSlider key={pos} data={item.elements} pos={pos+1}/>
-        <BarCharAndSlider key={pos} data={item.elements} pos={pos+1}/>
+        <BarChartAndSlider key={pos} data={item.elements} pos={pos+1}/>
     ))}
     </x.div>
   )
