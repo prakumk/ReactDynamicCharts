@@ -1,6 +1,7 @@
 import { x } from '@xstyled/styled-components'
 import React from 'react';
 import Pie from './Pie'
+import Category from './Pie'
 import { useState } from 'react'
 
 
@@ -26,27 +27,51 @@ type PieAndSliderProps = {
 data: number[]
 }
 
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+
 const PieAndSlider = ({ data }: PieAndSliderProps): JSX.Element => {
 
   const [categories, setCategories] = useState(() => {
-    const initialCategories = [
-      {
+
+    var initialCategories  = [{
+      title: 'Temp',
+      color: '#94a3b8',
+    }]
+    initialCategories.pop()
+
+    data.map((item)=>(
+      initialCategories.push({
         title: 'Category A',
-        color: '#94a3b8',
-      },
-      {
-        title: 'Category B',
-        color: '#fb923c',
-      },
-      {
-        title: 'Category C',
-        color: '#4ade80',
-      },
-      {
-        title: 'Category D',
-        color: '#a78bfa',
-      },
-    ]
+        color: getRandomColor(),
+      })
+    ));
+
+    // const initialCategories = [
+    //   {
+    //     title: 'Category A',
+    //     color: '#94a3b8',
+    //   },
+    //   {
+    //     title: 'Category B',
+    //     color: '#fb923c',
+    //   },
+    //   {
+    //     title: 'Category C',
+    //     color: '#4ade80',
+    //   },
+    //   {
+    //     title: 'Category D',
+    //     color: '#a78bfa',
+    //   },
+    // ]
     const splits = splitAmount(100, initialCategories.length)
 
     return initialCategories.map((item, index) => ({

@@ -54,8 +54,8 @@ function App(): JSX.Element {
 
   return (
     <div>
-    {chart_data.map((item : any) => (
-      <PieAndSlider data={item.elements}/>
+    {chart_data.map((item : any,pos) => (
+      <PieAndSlider key={pos} data={item.elements}/>
     ))}
     </div>
   )
