@@ -23,7 +23,8 @@ const splitAmount = (amount: number, n: number): number[] => {
 }
 
 type PieAndSliderProps = {
-data: number[]
+data: number[],
+pos:number
 }
 
 function getRandomColor() {
@@ -36,7 +37,7 @@ function getRandomColor() {
 }
 
 
-const PieAndSlider = ({ data }: PieAndSliderProps): JSX.Element => {
+const PieAndSlider = ({ data, pos }: PieAndSliderProps): JSX.Element => {
 
   const [categories, setCategories] = useState(() => {
 
@@ -50,7 +51,7 @@ const PieAndSlider = ({ data }: PieAndSliderProps): JSX.Element => {
 
     data.map((item,index)=>(
       initialCategories.push({
-        title: 'Category A',
+        title: `Category ${index+1}`,
         color: getRandomColor(),
         id:index,
         value: item,
@@ -82,6 +83,7 @@ const PieAndSlider = ({ data }: PieAndSliderProps): JSX.Element => {
       justifyContent="flex-start"
       mt={5}
     >
+      <x.h1>{pos}. Type : Pie Chart</x.h1>
       <Pie data={categories} handleSlider={handleCategories} />
     </x.div>
 )

@@ -2,6 +2,8 @@ import React from 'react';
 import { useState,useEffect } from 'react'
 import axios from 'axios';
 import PieAndSlider from './components/PieAndSlider';
+import { x } from '@xstyled/styled-components'
+
 
 // const splitAmount = (amount: number, n: number): number[] => {
 //   const parts = []
@@ -53,11 +55,14 @@ function App(): JSX.Element {
   }
 
   return (
-    <div>
+    <x.div
+      display="flex"
+      mt={5}
+    >
     {chart_data.map((item : any,pos) => (
-      <PieAndSlider key={pos} data={item.elements}/>
+      <PieAndSlider key={pos} data={item.elements} pos={pos+1}/>
     ))}
-    </div>
+    </x.div>
   )
 }
 
