@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import ReactDOM from "react-dom";
 import "@carbon/charts/styles.css";
 import { x } from '@xstyled/styled-components'
@@ -24,35 +24,38 @@ function getRandomColor() {
 
 const BarChartAndSlider =  ({ data, pos }: BarCharAndSliderProps): JSX.Element =>{
 
-	var scale_colors : {[key: string]: string} = {}
-	data.map((item,pos)=>(
-		scale_colors[`Category ${pos+1}`] = getRandomColor()
-	))
-	// console.log("Item changed")
-
-	// console.log(scale_colors)
-
-    var state = {
-    	options : {
-			"title": "Bar Chat with elements and random color",
-			"axes": {
-			"left": {
-				"mapsTo": "value"
-			},
-			"bottom": {
-				"mapsTo": "group",
-				"scaleType": "labels"
-			}
-			},
-			"color": {
-				"scale": scale_colors
-			},
-			"height": "400px",
-			"width":"500px"
-	  }
-	};
-
 	
+
+	const [scaleColors, setScaleColors] = useState< {[key: string]: string}>(() => {
+		var _scale_colors : {[key: string]: string} = {}
+		data.map((item,pos)=>(
+			_scale_colors[`Category ${pos+1}`] = getRandomColor()
+		))
+		return _scale_colors
+	})
+	const [bar_options, setBarOptions] = useState(()=>{
+		var state = {
+			options : {
+				"title": "Bar Chat with elements and random color",
+				"axes": {
+				"left": {
+					"mapsTo": "value"
+				},
+				"bottom": {
+					"mapsTo": "group",
+					"scaleType": "labels"
+				}
+				},
+				"color": {
+					"scale": scaleColors
+				},
+				"height": "400px",
+				"width":"500px"
+		  }
+		};
+		return state
+	})
+
 	const [categories, setCategories] = useState(() => {
 
 		var initialCategories : {title: string,color:string,id:number,value:number,group:string}[] = []
@@ -60,7 +63,7 @@ const BarChartAndSlider =  ({ data, pos }: BarCharAndSliderProps): JSX.Element =
 		data.map((item,pos)=>(
 		  initialCategories.push({
 			title: `Category ${pos+1}`,
-			color: scale_colors[`Category ${pos+1}`],
+			color: scaleColors[`Category ${pos+1}`],
 			id:pos,
 			value: item,
 			group:`Category ${pos+1}`,
@@ -78,7 +81,6 @@ const BarChartAndSlider =  ({ data, pos }: BarCharAndSliderProps): JSX.Element =
 			value: item.id === id ? value : item.value,
 		  }))
 		})
-		console.log(categories)
 	  }
 
 
@@ -97,7 +99,7 @@ const BarChartAndSlider =  ({ data, pos }: BarCharAndSliderProps): JSX.Element =
 	  >
       <x.h1>{pos}. Type : Bar Chart</x.h1>
         <BarChartSliderBase
-			state={state} data={categories} handleSlider={handleCategories} />
+			state={bar_options} data={categories} handleSlider={handleCategories} />
 		</x.div>
       );
 }
