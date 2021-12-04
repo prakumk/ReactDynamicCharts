@@ -24,21 +24,15 @@ function getRandomColor() {
 
 const BarChartAndSlider =  ({ data, pos }: BarCharAndSliderProps): JSX.Element =>{
 
-	var bar_chart_data : {group: string,value:number}[] = []
 	var scale_colors : {[key: string]: string} = {}
-	data.map((item:number,pos)=>(
-		bar_chart_data.push({
-			"group": `Category ${pos+1}`,
-			"value": item
-		  })
-	))
 	data.map((item,pos)=>(
 		scale_colors[`Category ${pos+1}`] = getRandomColor()
 	))
+	// console.log("Item changed")
 
+	// console.log(scale_colors)
 
     var state = {
-		data: bar_chart_data,
     	options : {
 			"title": "Bar Chat with elements and random color",
 			"axes": {
@@ -61,7 +55,7 @@ const BarChartAndSlider =  ({ data, pos }: BarCharAndSliderProps): JSX.Element =
 	
 	const [categories, setCategories] = useState(() => {
 
-		var initialCategories : {title: string,color:string,id:number,value:number}[] = []
+		var initialCategories : {title: string,color:string,id:number,value:number,group:string}[] = []
 	
 		data.map((item,pos)=>(
 		  initialCategories.push({
@@ -69,6 +63,7 @@ const BarChartAndSlider =  ({ data, pos }: BarCharAndSliderProps): JSX.Element =
 			color: scale_colors[`Category ${pos+1}`],
 			id:pos,
 			value: item,
+			group:`Category ${pos+1}`,
 		  })
 		));
 	
@@ -77,13 +72,13 @@ const BarChartAndSlider =  ({ data, pos }: BarCharAndSliderProps): JSX.Element =
 	  })
 	
 	  const handleCategories = (id: number, value: number): void => {
-		// const others = splitAmount(100 - value, categories.length - 1)
-		// setCategories((prev) => {
-		//   return prev.map((item) => ({
-		// 	...item,
-		// 	value: item.id === id ? value : others.pop() || 0,
-		//   }))
-		// })
+		setCategories((prev) => {
+		  return prev.map((item) => ({
+			...item,
+			value: item.id === id ? value : item.value,
+		  }))
+		})
+		console.log(categories)
 	  }
 
 

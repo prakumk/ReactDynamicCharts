@@ -20,7 +20,7 @@ const BarChartSliderBase = ({ data,state, handleSlider }: BarChartSliderBaseProp
   return (
     <x.div>
       <BarChart
-			data={state.data}
+			data={data}
 			options={state.options}/>
       {data.map((item) => (
         <Slider
