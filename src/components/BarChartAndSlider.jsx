@@ -11,37 +11,31 @@ import { x } from '@xstyled/styled-components'
 // }
     
 
-// var options = {
-//     plugins: {
-//       datalabels: {
-//         // formatter: function(value, context) {
-//         //   console.log(value)
-//         //   return context.chart.data.labels[context.dataIndex];
-//         // },
-//         color: function(context:any) {
-//           return context.dataset.backgroundColor;
-//         },
-//         align: "top",
-//         anchor: "end",
-//         padding: -4,
-//         font: {
-//           size: "16",
-//           weight: "bold"
-//         }
-//       }
-//     }
-//   };
+function getRandomColor() {
+	var letters = '0123456789ABCDEF';
+	var color = '#';
+	for (var i = 0; i < 6; i++) {
+	  color += letters[Math.floor(Math.random() * 16)];
+	}
+	return color;
+  }
+  
   
 
 const BarCharAndSlider = ({ data, pos }) => {
 
 	var bar_chart_data = []
+	var scale_colors = {}
 	data.map((item,pos)=>(
 		bar_chart_data.push({
 			"group": `Category ${pos}`,
 			"value": item
 		  })
 	))
+	data.map((item,pos)=>(
+		scale_colors[`Category ${pos}`] = getRandomColor()
+	))
+
 
     var state = {
 		data: bar_chart_data,
@@ -55,6 +49,9 @@ const BarCharAndSlider = ({ data, pos }) => {
 			"mapsTo": "group",
 			"scaleType": "labels"
 		  }
+		},
+		"color": {
+			"scale": scale_colors
 		},
 		"height": "400px",
 		"width":"500px"
