@@ -1,7 +1,5 @@
 import React from 'react';
 import { useState,useEffect } from 'react'
-import { x } from '@xstyled/styled-components'
-import Pie from './components/Pie'
 import axios from 'axios';
 import PieAndSlider from './components/PieAndSlider';
 
@@ -26,13 +24,13 @@ import PieAndSlider from './components/PieAndSlider';
 function App(): JSX.Element {
 
 
-  const [chart_count,setChartCount] = useState(0)
+  const [chart_data,setChartData] = useState([])
 
   useEffect(() => {
   axios.get('https://s3-ap-southeast-1.amazonaws.com/he-public-data/chart2986176.json')
   .then(response => {
       console.log(response);
-      setChartCount(response.data.length)
+      setChartData(response.data)
   })
   .catch(error => {
       console.error('There was an error!', error);
@@ -40,45 +38,7 @@ function App(): JSX.Element {
   },[]);
 
 
-  // const [categories, setCategories] = useState(() => {
-  //   const initialCategories = [
-  //     {
-  //       title: 'Category A',
-  //       color: '#94a3b8',
-  //     },
-  //     {
-  //       title: 'Category B',
-  //       color: '#fb923c',
-  //     },
-  //     {
-  //       title: 'Category C',
-  //       color: '#4ade80',
-  //     },
-  //     {
-  //       title: 'Category D',
-  //       color: '#a78bfa',
-  //     },
-  //   ]
-  //   const splits = splitAmount(100, initialCategories.length)
-
-  //   return initialCategories.map((item, index) => ({
-  //     ...item,
-  //     id: index,
-  //     value: splits[index],
-  //   }))
-  // })
-
-  // const handleCategories = (id: number, value: number): void => {
-  //   const others = splitAmount(100 - value, categories.length - 1)
-  //   setCategories((prev) => {
-  //     return prev.map((item) => ({
-  //       ...item,
-  //       value: item.id === id ? value : others.pop() || 0,
-  //     }))
-  //   })
-  // }
-
-  if (chart_count === 0)
+  if (chart_data.length === 0)
   {
     return (
       <div 
@@ -93,7 +53,11 @@ function App(): JSX.Element {
   }
 
   return (
-    <PieAndSlider />
+    <div>
+    {chart_data.map((item : any) => (
+      <PieAndSlider data={item.elements}/>
+    ))}
+    </div>
   )
 }
 

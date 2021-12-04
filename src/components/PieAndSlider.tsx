@@ -25,9 +25,8 @@ const splitAmount = (amount: number, n: number): number[] => {
 type PieAndSliderProps = {
 data: number[]
 }
-// { data }: PieAndSliderProps
 
-const PieAndSlider = (): JSX.Element => {
+const PieAndSlider = ({ data }: PieAndSliderProps): JSX.Element => {
 
   const [categories, setCategories] = useState(() => {
     const initialCategories = [
