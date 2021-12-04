@@ -1,10 +1,9 @@
 import { x } from '@xstyled/styled-components'
 import React from 'react';
 import Pie from './Pie'
-import Category from './Pie'
 import { useState } from 'react'
 
-
+//Used during modifying to new values
 const splitAmount = (amount: number, n: number): number[] => {
   const parts = []
   if (amount % n === 0) {
@@ -44,41 +43,22 @@ const PieAndSlider = ({ data }: PieAndSliderProps): JSX.Element => {
     var initialCategories  = [{
       title: 'Temp',
       color: '#94a3b8',
+      id:1,
+      value:1,
     }]
     initialCategories.pop()
 
-    data.map((item)=>(
+    data.map((item,index)=>(
       initialCategories.push({
         title: 'Category A',
         color: getRandomColor(),
+        id:index,
+        value: item,
       })
     ));
 
-    // const initialCategories = [
-    //   {
-    //     title: 'Category A',
-    //     color: '#94a3b8',
-    //   },
-    //   {
-    //     title: 'Category B',
-    //     color: '#fb923c',
-    //   },
-    //   {
-    //     title: 'Category C',
-    //     color: '#4ade80',
-    //   },
-    //   {
-    //     title: 'Category D',
-    //     color: '#a78bfa',
-    //   },
-    // ]
-    const splits = splitAmount(100, initialCategories.length)
+    return initialCategories
 
-    return initialCategories.map((item, index) => ({
-      ...item,
-      id: index,
-      value: splits[index],
-    }))
   })
 
   const handleCategories = (id: number, value: number): void => {
