@@ -61,7 +61,7 @@ function App(): JSX.Element {
       flexDirection = "column"
       mt={5}
     >
-      <x.p><x.h3>Clootrack Software Engineer (Frontend) Hiring Challenge</x.h3> API Endpoint : <a href="https://s3-ap-southeast-1.amazonaws.com/he-public-data/chart2986176.json">https://s3-ap-southeast-1.amazonaws.com/he-public-data/chart2986176.json</a></x.p>
+      <x.p> API Endpoint : <a href="https://s3-ap-southeast-1.amazonaws.com/he-public-data/chart2986176.json">https://s3-ap-southeast-1.amazonaws.com/he-public-data/chart2986176.json</a></x.p>
     <x.div
       display="flex"
       mt={5}
